@@ -20,7 +20,9 @@ bootstrap_splits = 10
 model_string = './TrainedModels/PHASE_mysplit_humanratings_context'+ str(args.context_info) + '_' + timestr + '_'
 
 ## Get videos data (position, vel, landmark info etc and associated human rating labels)
-with open('./PHASE/Videos_humanratings', "rb") as f:
+#with open('./PHASE/Videos_humanratings', "rb") as f: # TODO: replace file with vae file
+  #Videos = pickle.load(f)
+with open('./PHASE/vae_videos.pickle', "rb") as f: # TODO: replace file with vae file
   Videos = pickle.load(f)
 
 mapping = {'friendly':(1,0,0), 'neutral': (0,1,0), 'adversarial': (0,0,1)}

@@ -11,7 +11,7 @@ from distutils.util import strtobool
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model_name', help="SocialGNN_V/SocialGNN_E/CueBasedLSTM/CueBasedLSTM-Relation", type= str)
-parser.add_argument('--train_datetime', help="YYYYMMDD", type= str, default= "20230503")
+parser.add_argument('--train_datetime', help="YYYYMMDD", type= str, default= "20230616")
 parser.add_argument('--context_info', help="True/False", type=lambda x: bool(strtobool(x)), default=True)
 parser.add_argument('--bootstrap_no', help="0-9", type=int, default=0)
 parser.add_argument('--save_predictions', help="True/False", type=lambda x: bool(strtobool(x)), default = True)
@@ -53,7 +53,8 @@ if args.model_name == "SocialGNN_V" or args.model_name == "SocialGNN_V_onlyagent
 
   a = 2 if args.model_name == "SocialGNN_V_onlyagents" else 4
 
-  C = model_config(NUM_NODES = 4, NUM_AGENTS = a, V_SPATIAL_SIZE = 64, E_SPATIAL_SIZE = 64, V_TEMPORAL_SIZE = 16, V_OUTPUT_SIZE = 3, BATCH_SIZE = 20, CLASS_WEIGHTS = [[1.0,2.0,1.0]], LEARNING_RATE = 1e-3, LAMBDA = 0.05 )
+  #C = model_config(NUM_NODES = 4, NUM_AGENTS = a, V_SPATIAL_SIZE = 64, E_SPATIAL_SIZE = 64, V_TEMPORAL_SIZE = 16, V_OUTPUT_SIZE = 3, BATCH_SIZE = 20, CLASS_WEIGHTS = [[1.0,2.0,1.0]], LEARNING_RATE = 1e-3, LAMBDA = 0.05 )
+  C = model_config(NUM_NODES = 4, NUM_AGENTS = a, V_SPATIAL_SIZE = 12, E_SPATIAL_SIZE = 12, V_TEMPORAL_SIZE = 6, V_OUTPUT_SIZE = 3, BATCH_SIZE = 20, CLASS_WEIGHTS = [[1.0,2.0,1.0]], LEARNING_RATE = 1e-3, LAMBDA = 0.05 )
   model = SocialGNN(Videos, C, args.context_info, sample_graph_dicts_list)
   model._initialize_session()
   model.load_model(model_string  + str(args.bootstrap_no) + '_' + args.model_name)
